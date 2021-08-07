@@ -2,10 +2,8 @@ package com.derar.libya.todoapp.fragment.list
 
 import android.os.Bundle
 import android.util.Log
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.derar.libya.todoapp.R
 import com.derar.libya.todoapp.databinding.FragmentListBinding
@@ -21,6 +19,10 @@ class ListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         Log.d("Debug:findNav","Star Fragment")
+
+        //Tell the fragment that it have menu or Set Menu
+        setHasOptionsMenu(true)
+
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_list, container, false)
         binding = FragmentListBinding.bind(view)
@@ -42,6 +44,11 @@ class ListFragment : Fragment() {
 
 
         return view
+    }
+
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.list_fragment_menu,menu)
     }
 
 
