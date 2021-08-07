@@ -24,10 +24,23 @@ class ListFragment : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_list, container, false)
         binding = FragmentListBinding.bind(view)
+
+        //Change the fragment to aadFragment
+        // when user click on add floating button
         binding.floatingActionButton.setOnClickListener { view ->
             findNavController().navigate(R.id.action_listFragment_to_addFragment)
             Log.d("Debug:findNav","${view}")
         }
+
+        /**
+         * Change the fragment to updateFragment
+         * when user click on listFragment
+         */
+        binding.listLayout.setOnClickListener {
+          findNavController().navigate(R.id.action_listFragment_to_updateFragment)
+        }
+
+
         return view
     }
 
