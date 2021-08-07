@@ -5,4 +5,12 @@
     <string name="no_data">No data</string>
     <string name="add_note_floating_button">Add note Floating Button</string>
     <string name="no_data_image">no data image</string>
+    <string name="title">Title</string>
+    <string name="description">Description</string>
+    
+    <string-array name="priorities" >
+        <item>High Priority</item>
+        <item>Medium Priority</item>
+        <item>Low Priority</item>
+    </string-array>
 </resources>
