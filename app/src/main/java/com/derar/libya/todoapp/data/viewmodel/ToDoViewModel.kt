@@ -18,7 +18,7 @@ class ToDoViewModel(application: Application)
     private val repository: ToDoRepository
 
 
-    private val getAllData: LiveData<List<ToDoData>>
+    val getAllData: LiveData<List<ToDoData>>
 
 
     init {
