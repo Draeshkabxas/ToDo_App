@@ -1,4 +1,4 @@
-package com.derar.libya.todoapp
+package com.derar.libya.todoapp.data
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
