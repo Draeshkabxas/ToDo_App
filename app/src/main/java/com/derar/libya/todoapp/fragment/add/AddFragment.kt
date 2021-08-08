@@ -34,6 +34,9 @@ class AddFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_add, container, false)
         binding = FragmentAddBinding.bind(view)
 
+        //Set spinner onItemSelectedListener to be
+        // change color listener inside SharedViewModel class
+        binding.prioritiesSpinner.onItemSelectedListener = mSharedViewModel.listener
 
         return view
     }
