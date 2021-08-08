@@ -12,6 +12,7 @@ import com.derar.libya.todoapp.data.models.Priority
 import com.derar.libya.todoapp.data.models.ToDoData
 import com.derar.libya.todoapp.data.viewmodel.ToDoViewModel
 import com.derar.libya.todoapp.databinding.FragmentAddBinding
+import com.derar.libya.todoapp.fragment.SharedViewModel
 
 
 class AddFragment : Fragment() {
@@ -19,6 +20,7 @@ class AddFragment : Fragment() {
     private lateinit var binding: FragmentAddBinding
 
     private val mToDoViewModel: ToDoViewModel by viewModels()
+    private val mSharedViewModel: SharedViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -66,14 +68,14 @@ class AddFragment : Fragment() {
         val priority = binding.prioritiesSpinner.selectedItem.toString()
         val description = binding.descriptionEt.text.toString()
 
-        val validation = verifyDataFromUser(title, description)
+        val validation = mSharedViewModel.verifyDataFromUser(title, description)
         if (validation) {
             //Insert data to database
             val newData = ToDoData(
                 0,
                 title,
                 description,
-                parsePriority(priority)
+                mSharedViewModel.parsePriority(priority)
             )
 
 
@@ -97,32 +99,6 @@ class AddFragment : Fragment() {
 
     }
 
-    /**
-     * This function covert spinner selected item to priority
-     */
-    private fun parsePriority(priority: String): Priority {
-        val choices:Array<String> =resources.getStringArray(R.array.priorities)
-    return when (priority)
-    {
-        choices[0] -> Priority.HIGH
 
-        choices[1] -> Priority.MEDIUM
-
-        choices[2] -> Priority.LOW
-
-        else -> Priority.LOW
-    }
-}
-
-    /**
-     * This function check if title and description not empty
-     * @return true  if title and description not empty
-     * @return false if title or description is empty
-     */
-    private fun verifyDataFromUser(title: String, description: String):Boolean{
-        return if (TextUtils.isEmpty(title) || TextUtils.isEmpty(description)){
-            false
-        }else !(title.isEmpty() || description.isEmpty())
-    }
 
 }
