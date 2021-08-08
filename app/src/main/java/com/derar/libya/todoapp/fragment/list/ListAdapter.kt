@@ -1,6 +1,8 @@
 package com.derar.libya.todoapp.fragment.list
 
 import android.annotation.SuppressLint
+import android.graphics.Color
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
@@ -35,6 +37,7 @@ class ListAdapter : RecyclerView.Adapter<ListAdapter.ViewHolder>() {
          * Low Priority will change to green
          */
         private fun setCardPriorityIndicatorColor(priority: Priority) {
+            Log.i("Priority ",priority.name)
             when (priority){
                 HIGH -> setCardColor(R.color.red)
                 MEDIUM -> setCardColor(R.color.yellow)
@@ -47,7 +50,10 @@ class ListAdapter : RecyclerView.Adapter<ListAdapter.ViewHolder>() {
          * @param newColor the new color of the card
          */
         private fun setCardColor(newColor: Int) {
-            binding.priorityIndicator.setCardBackgroundColor(ContextCompat.getColor(binding.root.context,newColor))
+            Log.i("Priority new color: ",newColor.toString())
+        binding.priorityIndicator.setCardBackgroundColor(
+                ContextCompat.getColor(binding.root.context,newColor)
+            )
         }
     }
 
