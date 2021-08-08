@@ -1,4 +1,4 @@
-package com.derar.libya.todoapp.data
+package com.derar.libya.todoapp.data.models
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
