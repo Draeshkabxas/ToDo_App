@@ -3,6 +3,7 @@ package com.derar.libya.todoapp.fragment.update
 import android.os.Bundle
 import android.view.*
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -60,18 +61,21 @@ class UpdateFragment : Fragment() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.menu_save -> {
-                updateItem()
-            }
-            R.id.menu_delete -> {
+            R.id.menu_save -> updateItem()
 
-            }
+            R.id.menu_delete -> confirmItemRemoval()
         }
 
 
         return super.onOptionsItemSelected(item)
     }
 
+
+
+    /**
+     * This function update currentItem with what user type
+     * in updateFragment
+     */
     private fun updateItem() {
         //Get information from user
         val title = binding.currentTitleEt.text.toString()
@@ -109,6 +113,44 @@ class UpdateFragment : Fragment() {
                 Toast.LENGTH_SHORT
             ).show()
         }
+    }
+
+
+    /**
+     * This function show alert dialog to confirm item removal
+     * if user click on yes the item will be remove from database
+     * and successful toast will show and the user will navigate back
+     * to ListFragment
+     * if user click no nothing happened
+     */
+    private fun confirmItemRemoval() {
+        val builder = AlertDialog.Builder(requireContext())
+
+        //Set Yes button
+        builder.setPositiveButton("Yes"){_,_->
+            mToDoViewModel.deleteItem(args.currentItem)
+
+            //Show successful toast to user
+            Toast.makeText(
+                requireContext(),
+                "Successfully Removed: ${args.currentItem.title}",
+                Toast.LENGTH_SHORT
+            ).show()
+
+            //Navigate back to ListFragment
+            findNavController().navigate(R.id.action_updateFragment_to_listFragment)
+        }
+        //Set negative button to do nothing
+        builder.setNegativeButton("No"){_,_->}
+
+        //Set dialog title
+        builder.setTitle("Delete '${args.currentItem.title}'?")
+
+        //Set dialog message
+        builder.setMessage("Are you sure you want to remove '${args.currentItem.title}'?")
+
+        //Create and show the dialog
+        builder.create().show()
     }
 
 

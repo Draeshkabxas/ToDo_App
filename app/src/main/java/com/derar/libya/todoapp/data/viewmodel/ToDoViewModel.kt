@@ -39,4 +39,10 @@ class ToDoViewModel(application: Application)
         }
     }
 
+    fun deleteItem(toDoData: ToDoData){
+        viewModelScope.launch(IO) {
+            repository.deleteItem(toDoData)
+        }
+    }
+
 }
