@@ -1,10 +1,7 @@
 package com.derar.libya.todoapp.data
 
 import androidx.lifecycle.LiveData
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 import com.derar.libya.todoapp.data.models.TODO_TABLE_NAME
 import com.derar.libya.todoapp.data.models.ToDoData
 
@@ -16,5 +13,8 @@ interface ToDoDao {
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertData(toDoData: ToDoData)
+
+    @Update
+    suspend fun updateData(toDoData:ToDoData)
 
 }

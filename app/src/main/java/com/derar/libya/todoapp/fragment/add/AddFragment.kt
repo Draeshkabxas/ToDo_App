@@ -1,14 +1,12 @@
 package com.derar.libya.todoapp.fragment.add
 
 import android.os.Bundle
-import android.text.TextUtils
 import android.view.*
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.derar.libya.todoapp.R
-import com.derar.libya.todoapp.data.models.Priority
 import com.derar.libya.todoapp.data.models.ToDoData
 import com.derar.libya.todoapp.data.viewmodel.ToDoViewModel
 import com.derar.libya.todoapp.databinding.FragmentAddBinding

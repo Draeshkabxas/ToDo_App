@@ -81,4 +81,12 @@ class SharedViewModel(application: Application) :
             false
         } else !(title.isEmpty() || description.isEmpty())
     }
+
+
+
+    fun parsePriorityToInt(priority: Priority):Int = when(priority){
+        Priority.HIGH -> 0
+        Priority.MEDIUM -> 1
+        Priority.LOW -> 2
+    }
 }

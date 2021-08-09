@@ -15,5 +15,9 @@ class ToDoRepository(
         toDoDao.insertData(toDoData)
     }
 
+    suspend fun updateData(toDoData: ToDoData){
+        toDoDao.updateData(toDoData)
+    }
+
 
 }
