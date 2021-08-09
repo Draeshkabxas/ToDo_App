@@ -58,13 +58,7 @@ class ListFragment : Fragment() {
             Log.d("Debug:findNav","${view}")
         }
 
-        /**
-         * Change the fragment to updateFragment
-         * when user click on listFragment
-         */
-        binding.listLayout.setOnClickListener {
-          findNavController().navigate(R.id.action_listFragment_to_updateFragment)
-        }
+
 
 
         return view
