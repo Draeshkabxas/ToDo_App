@@ -45,4 +45,10 @@ class ToDoViewModel(application: Application)
         }
     }
 
+    fun deleteAll(){
+        viewModelScope.launch(IO){
+            repository.deleteAll()
+        }
+    }
+
 }
