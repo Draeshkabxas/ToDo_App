@@ -1,13 +1,11 @@
-package com.derar.libya.todoapp.fragment.list
+package com.derar.libya.todoapp.fragments.list
 
 import android.annotation.SuppressLint
-import android.text.Layout
 
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
-import androidx.fragment.app.ListFragment
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.derar.libya.todoapp.R
@@ -15,7 +13,6 @@ import com.derar.libya.todoapp.data.models.Priority
 import com.derar.libya.todoapp.data.models.Priority.*
 import com.derar.libya.todoapp.data.models.ToDoData
 import com.derar.libya.todoapp.databinding.RowLayoutBinding
-import com.derar.libya.todoapp.fragment.update.UpdateFragment
 
 class ListAdapter : RecyclerView.Adapter<ListAdapter.ViewHolder>() {
 

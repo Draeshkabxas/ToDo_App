@@ -1,4 +1,4 @@
-package com.derar.libya.todoapp.fragment.update
+package com.derar.libya.todoapp.fragments.update
 
 import android.os.Bundle
 import android.view.*
@@ -12,7 +12,7 @@ import com.derar.libya.todoapp.R
 import com.derar.libya.todoapp.data.models.ToDoData
 import com.derar.libya.todoapp.data.viewmodel.ToDoViewModel
 import com.derar.libya.todoapp.databinding.FragmentUpdateBinding
-import com.derar.libya.todoapp.fragment.SharedViewModel
+import com.derar.libya.todoapp.fragments.SharedViewModel
 
 
 class UpdateFragment : Fragment() {
@@ -20,8 +20,8 @@ class UpdateFragment : Fragment() {
     //Args that passed from ListAdapter in ListFragment recycleView
     private val args by navArgs<UpdateFragmentArgs>()
 
-    private lateinit var binding: FragmentUpdateBinding
-
+    private var _binding: FragmentUpdateBinding? = null
+    private val binding get() = _binding!!
 
     private val mSharedViewModel: SharedViewModel by viewModels()
 
@@ -34,16 +34,11 @@ class UpdateFragment : Fragment() {
         //Set menu
         setHasOptionsMenu(true)
 
-        // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_update, container, false)
-        binding = FragmentUpdateBinding.bind(view)
+        //Data binding
+       _binding=FragmentUpdateBinding.inflate(inflater, container, false)
+        binding.args = args.currentItem
 
-        //Set title , description and spinner
-        // information from passed argument
-        val toDoData = args.currentItem
-        binding.currentTitleEt.setText(toDoData.title)
-        binding.currentDescriptionEt.setText(toDoData.description)
-        binding.currentPrioritiesSpinner.setSelection(mSharedViewModel.parsePriorityToInt(toDoData.priority))
+
 
         //Set spinner onItemSelectedListener to be
         // change color listener inside SharedViewModel class
@@ -151,6 +146,14 @@ class UpdateFragment : Fragment() {
 
         //Create and show the dialog
         builder.create().show()
+    }
+
+    /**
+     * Set _binding to null for avoid memory leaks
+     */
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding =null
     }
 
 

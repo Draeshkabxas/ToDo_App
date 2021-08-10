@@ -1,4 +1,4 @@
-package com.derar.libya.todoapp.fragment.list
+package com.derar.libya.todoapp.fragments.list
 
 import android.os.Bundle
 import android.util.Log
@@ -8,14 +8,11 @@ import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.observe
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.derar.libya.todoapp.R
-import com.derar.libya.todoapp.data.ToDoDatabase
 import com.derar.libya.todoapp.data.viewmodel.ToDoViewModel
 import com.derar.libya.todoapp.databinding.FragmentListBinding
-import com.derar.libya.todoapp.fragment.SharedViewModel
+import com.derar.libya.todoapp.fragments.SharedViewModel
 
 
 class ListFragment : Fragment() {

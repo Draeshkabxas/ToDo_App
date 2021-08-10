@@ -1,4 +1,4 @@
-package com.derar.libya.todoapp.fragment.add
+package com.derar.libya.todoapp.fragments.add
 
 import android.os.Bundle
 import android.view.*
@@ -10,7 +10,7 @@ import com.derar.libya.todoapp.R
 import com.derar.libya.todoapp.data.models.ToDoData
 import com.derar.libya.todoapp.data.viewmodel.ToDoViewModel
 import com.derar.libya.todoapp.databinding.FragmentAddBinding
-import com.derar.libya.todoapp.fragment.SharedViewModel
+import com.derar.libya.todoapp.fragments.SharedViewModel
 
 
 class AddFragment : Fragment() {

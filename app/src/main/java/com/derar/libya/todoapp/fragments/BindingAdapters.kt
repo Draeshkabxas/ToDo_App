@@ -1,11 +1,14 @@
-package com.derar.libya.todoapp.fragment
+package com.derar.libya.todoapp.fragments
 
 
 import android.view.View
+import android.widget.Spinner
 import androidx.databinding.BindingAdapter
 import androidx.lifecycle.MutableLiveData
 import androidx.navigation.findNavController
 import com.derar.libya.todoapp.R
+import com.derar.libya.todoapp.data.models.Priority
+import com.derar.libya.todoapp.data.models.Priority.*
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class BindingAdapters {
@@ -35,12 +38,23 @@ class BindingAdapters {
          */
         @BindingAdapter("android:emptyDatabase")
         @JvmStatic
-        fun emptyDatabase(view:View , emptyDatabase : MutableLiveData<Boolean>){
-                if(emptyDatabase.value!!)
-                    view.visibility = View.VISIBLE
-                else
-                    view.visibility = View.INVISIBLE
+        fun emptyDatabase(view: View, emptyDatabase: MutableLiveData<Boolean>) {
+            if (emptyDatabase.value!!)
+                view.visibility = View.VISIBLE
+            else
+                view.visibility = View.INVISIBLE
 
+        }
+
+
+        @BindingAdapter("android:parsePriorityToInt")
+        @JvmStatic
+        fun parsePriorityToInt(view: Spinner, priority: Priority) {
+            when (priority) {
+                HIGH -> view.setSelection(0)
+                MEDIUM -> view.setSelection(1)
+                LOW -> view.setSelection(2)
+            }
         }
 
 

@@ -1,4 +1,4 @@
-package com.derar.libya.todoapp.fragment
+package com.derar.libya.todoapp.fragments
 
 import android.app.Application
 import android.text.TextUtils
@@ -15,7 +15,7 @@ import com.derar.libya.todoapp.data.models.ToDoData
 class SharedViewModel(application: Application) :
     AndroidViewModel(application) {
 
-
+    /** ==================================== List Fragment =============================================*/
     //this variable for know database is empty or not
     val emptyDatabase:MutableLiveData<Boolean> = MutableLiveData(true)
 
@@ -29,6 +29,7 @@ class SharedViewModel(application: Application) :
     }
 
 
+    /** ==================================== Add/Update Fragments =============================================*/
 /**
  * This listener changing the text color of spinner item
  * High Priority will change to red
@@ -101,9 +102,4 @@ class SharedViewModel(application: Application) :
 
 
 
-    fun parsePriorityToInt(priority: Priority):Int = when(priority){
-        Priority.HIGH -> 0
-        Priority.MEDIUM -> 1
-        Priority.LOW -> 2
-    }
 }
