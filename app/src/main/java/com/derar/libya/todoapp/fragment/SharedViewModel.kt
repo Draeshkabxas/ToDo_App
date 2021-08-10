@@ -7,11 +7,28 @@ import android.widget.AdapterView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.MutableLiveData
 import com.derar.libya.todoapp.R
 import com.derar.libya.todoapp.data.models.Priority
+import com.derar.libya.todoapp.data.models.ToDoData
 
 class SharedViewModel(application: Application) :
     AndroidViewModel(application) {
+
+
+    //this variable for know database is empty or not
+    val emptyDatabase:MutableLiveData<Boolean> = MutableLiveData(true)
+
+
+    /**
+     * This function check if is empty or not
+     * and set the result in emptyDatabase value
+     */
+    fun checkIfDatabaseEmpty(toDoData: List<ToDoData>){
+        emptyDatabase.value = toDoData.isNullOrEmpty()
+    }
+
+
 /**
  * This listener changing the text color of spinner item
  * High Priority will change to red
