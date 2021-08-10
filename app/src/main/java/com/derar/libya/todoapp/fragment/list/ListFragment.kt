@@ -29,7 +29,8 @@ class ListFragment : Fragment() {
 
     private val mSharedViewModel: SharedViewModel by viewModels()
 
-    private lateinit var binding: FragmentListBinding
+    private var _binding: FragmentListBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,20 +41,19 @@ class ListFragment : Fragment() {
         //Tell the fragment that it have menu or Set Menu
         setHasOptionsMenu(true)
 
-        // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_list, container, false)
-        binding = FragmentListBinding.bind(view)
+        //DataBinding Inflate the layout for this fragment
+        _binding = FragmentListBinding.inflate(inflater, container, false)
 
-        //The recycle view
-        val recyclerView=binding.recyclerView
+        //Set lifecycleOwner binding to be this
+        binding.lifecycleOwner= this
 
-        //Set recycle view adapter to be ListAdapter
-        recyclerView.adapter =adapter
+        //Set binding variable mSharedViewModel  to be this mSharedViewModel
+        binding.mSharedViewModel=mSharedViewModel
 
-        //Set recycle view layout manager to be linear layout
-        recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        //Setup recycleView
+        setupRecyclerView()
 
-        //Get the data from database and set it in adapter
+        //Observe LiveData to Get the data from database and set it in adapter
         mToDoViewModel.getAllData.observe(viewLifecycleOwner, Observer {data->
             //Call check if data base empty for show no data image and text to user
             mSharedViewModel.checkIfDatabaseEmpty(data)
@@ -62,35 +62,24 @@ class ListFragment : Fragment() {
 
         //Whenever emptyDatabase change value of it call showEmptyDatabaseViews
         // for show no data image and text to user if there is no data
-        mSharedViewModel.emptyDatabase.observe(viewLifecycleOwner, Observer {
-            showEmptyDatabaseViews(it)
-        })
 
-        //Change the fragment to aadFragment
-        // when user click on add floating button
-        binding.floatingActionButton.setOnClickListener { view ->
-            findNavController().navigate(R.id.action_listFragment_to_addFragment)
-            Log.d("Debug:findNav","$view")
-        }
-        return view
+
+
+        return binding.root
     }
 
-    /**
-     * This function change the visibility of no data image and no data text
-     * IF passed pram is ture to set visibility to visible
-     * IF passed pram is false to set visibility to invisible
-     * @param emptyDatabase the situation of the database is it empty or not
-     */
-    private fun showEmptyDatabaseViews(emptyDatabase: Boolean) {
-        if (emptyDatabase){
-            binding.noDataImage.visibility = View.VISIBLE
-            binding.noDataText.visibility = View.VISIBLE
-        }else{
-            binding.noDataImage.visibility = View.INVISIBLE
-            binding.noDataText.visibility = View.INVISIBLE
-        }
+    private fun setupRecyclerView() {
+        //The recycle view
+        val recyclerView=binding.recyclerView
 
+        //Set recycle view adapter to be ListAdapter
+        recyclerView.adapter =adapter
+
+        //Set recycle view layout manager to be linear layout
+        recyclerView.layoutManager = LinearLayoutManager(requireContext())
     }
+
+
 
 
     /**
@@ -150,6 +139,15 @@ class ListFragment : Fragment() {
 
         //Create and show the dialog
         builder.create().show()
+    }
+
+
+    /**
+     * Set _binding to null for avoid memory leaks
+     */
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
 
