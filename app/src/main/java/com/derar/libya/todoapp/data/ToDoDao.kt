@@ -15,7 +15,7 @@ interface ToDoDao {
     suspend fun insertData(toDoData: ToDoData)
 
     @Update
-    suspend fun updateData(toDoData:ToDoData)
+    suspend fun updateData(toDoData: ToDoData)
 
     @Delete
     suspend fun deleteItem(toDoData: ToDoData)
@@ -24,6 +24,13 @@ interface ToDoDao {
     suspend fun deleteAll()
 
     @Query("SELECT * FROM $TODO_TABLE_NAME WHERE title LIKE :searchQuery ")
-    fun searchDatabase(searchQuery:String): LiveData<List<ToDoData>>
+    fun searchDatabase(searchQuery: String): LiveData<List<ToDoData>>
+
+    @Query("SELECT * FROM $TODO_TABLE_NAME ORDER BY CASE WHEN priority LIKE 'H%' THEN 1 WHEN priority LIKE 'M%' THEN 2 WHEN priority LIKE 'L%' THEN 3 END")
+    fun sortByHighPriority(): LiveData<List<ToDoData>>
+
+    @Query("SELECT * FROM $TODO_TABLE_NAME ORDER BY CASE WHEN priority LIKE 'L%' THEN 1 WHEN priority LIKE 'M%' THEN 2 WHEN priority LIKE 'H%' THEN 3 END")
+    fun sortByLowPriority(): LiveData<List<ToDoData>>
+
 
 }

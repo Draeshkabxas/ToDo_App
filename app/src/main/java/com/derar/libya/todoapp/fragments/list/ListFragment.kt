@@ -164,6 +164,16 @@ class ListFragment : Fragment(),SearchView.OnQueryTextListener {
         when (item.itemId){
             //when delete all clicked call this function
             R.id.menu_delete_all-> confirmRemoval()
+
+            //Sort todolist by high priority
+            R.id.menu_priority_high -> mToDoViewModel.sortByHighPriority.observe(this,Observer{ list->
+                adapter.setData(list)
+            })
+
+            //Sort todolist by low priority
+            R.id.menu_priority_low -> mToDoViewModel.sortByLowPriority.observe(this,Observer{ list->
+                adapter.setData(list)
+            })
         }
 
 
