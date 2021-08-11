@@ -9,9 +9,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.recyclerview.widget.ItemTouchHelper
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.*
 import com.derar.libya.todoapp.R
 import com.derar.libya.todoapp.data.models.ToDoData
 import com.derar.libya.todoapp.data.viewmodel.ToDoViewModel
@@ -83,7 +81,7 @@ class ListFragment : Fragment(),SearchView.OnQueryTextListener {
         recyclerView.adapter =adapter
 
         //Set recycle view layout manager to be linear layout
-        recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        recyclerView.layoutManager = StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL)
 
         //Set recycler view animator
         recyclerView.itemAnimator = SlideInUpAnimator().apply {
