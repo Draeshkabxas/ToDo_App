@@ -3,12 +3,16 @@ package com.derar.libya.todoapp.fragments
 
 import android.view.View
 import android.widget.Spinner
+import androidx.cardview.widget.CardView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.databinding.BindingAdapter
 import androidx.lifecycle.MutableLiveData
 import androidx.navigation.findNavController
 import com.derar.libya.todoapp.R
 import com.derar.libya.todoapp.data.models.Priority
 import com.derar.libya.todoapp.data.models.Priority.*
+import com.derar.libya.todoapp.data.models.ToDoData
+import com.derar.libya.todoapp.fragments.list.ListFragmentDirections
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class BindingAdapters {
@@ -57,7 +61,44 @@ class BindingAdapters {
             }
         }
 
+        /**
+         * This function changing the passed card color background by passed priority
+         * High Priority will change card background to red
+         * Medium Priority will change background to yellow
+         * Low Priority will change background to green
+         */
+        @BindingAdapter("android:parsePriorityColor")
+        @JvmStatic
+        fun parsePriorityColor(cardView:CardView,priority: Priority){
+            when (priority){
+                HIGH -> setCardColor(cardView,R.color.red)
+                MEDIUM -> setCardColor(cardView,R.color.yellow)
+                LOW -> setCardColor(cardView,R.color.green)
+            }
+        }
 
+        /**
+         * This function set the passed color to be passed card background color
+         * @param color the new color of the card
+         * @param cardView the card that it's background will change
+         */
+        private fun setCardColor(cardView: CardView,color: Int) {
+            cardView.setCardBackgroundColor(
+                cardView.context!!.getColor(color)
+            )
+        }
+
+        @BindingAdapter("android:sendDataToUpdateFragment")
+        @JvmStatic
+        fun sendDataToUpdateFragment(view:ConstraintLayout,toDoData: ToDoData){
+            view.setOnClickListener {
+                val action = ListFragmentDirections.actionListFragmentToUpdateFragment(toDoData)
+                view.findNavController().navigate(action)
+            }
+        }
     }
+
+
+
 
 }

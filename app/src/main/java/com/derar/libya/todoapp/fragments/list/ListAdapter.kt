@@ -22,56 +22,30 @@ class ListAdapter : RecyclerView.Adapter<ListAdapter.ViewHolder>() {
     private var dataList = emptyList<ToDoData>()
 
     class ViewHolder(private val binding: RowLayoutBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: ToDoData) {
-            with(binding) {
-                titleTxt.text = item.title
-                descriptionTxt.text = item.description
-                val priority = item.priority
-               setCardPriorityIndicatorColor(priority)
-                rowBackground.setOnClickListener {
-                    val action=ListFragmentDirections.
-                    actionListFragmentToUpdateFragment(item)
-                    root.findNavController().navigate(action)
-                }
+        fun bind(toDoData: ToDoData) {
+            binding.toDoData = toDoData
+            binding.executePendingBindings()
+        }
+
+        companion object{
+            fun from(parent: ViewGroup):ViewHolder{
+                val layoutInflater = LayoutInflater.from(parent.context)
+                val binding = RowLayoutBinding.inflate(layoutInflater,parent,false)
+                return ViewHolder(binding)
             }
         }
 
-        /**
-         * This function changing the card color by priority
-         * High Priority will change to red
-         * Medium Priority will change to yellow
-         * Low Priority will change to green
-         */
-        private fun setCardPriorityIndicatorColor(priority: Priority) {
-            Log.i("Priority ",priority.name)
-            when (priority){
-                HIGH -> setCardColor(R.color.red)
-                MEDIUM -> setCardColor(R.color.yellow)
-                LOW -> setCardColor(R.color.green)
-            }
-        }
 
-        /**
-         * This function set the passed color to be card priorityIndicator color
-         * @param newColor the new color of the card
-         */
-        private fun setCardColor(newColor: Int) {
-            Log.i("Priority new color: ",newColor.toString())
-        binding.priorityIndicator.setCardBackgroundColor(
-                ContextCompat.getColor(binding.root.context,newColor)
-            )
-        }
+
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ListAdapter.ViewHolder(
-            RowLayoutBinding.inflate(
-            LayoutInflater.from(parent.context), parent, false)
-        )
+        return ViewHolder.from(parent)
     }
 
     override fun onBindViewHolder(holder: ListAdapter.ViewHolder, position: Int) {
-        holder.bind(dataList[position])
+        val currentItem=dataList[position]
+        holder.bind(currentItem)
     }
 
     override fun getItemCount(): Int = dataList.size
