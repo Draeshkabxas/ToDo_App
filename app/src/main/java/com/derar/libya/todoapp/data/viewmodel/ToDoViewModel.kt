@@ -51,4 +51,7 @@ class ToDoViewModel(application: Application)
         }
     }
 
+    fun searchDatabase(searchQuery:String):LiveData<List<ToDoData>> =
+        repository.searchDatabase(searchQuery)
+
 }

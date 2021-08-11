@@ -3,6 +3,7 @@ package com.derar.libya.todoapp.fragments.list
 import android.os.Bundle
 import android.util.Log
 import android.view.*
+import androidx.appcompat.widget.SearchView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
@@ -21,7 +22,7 @@ import com.google.android.material.snackbar.Snackbar
 import jp.wasabeef.recyclerview.animators.SlideInUpAnimator
 
 
-class ListFragment : Fragment() {
+class ListFragment : Fragment(),SearchView.OnQueryTextListener {
 
     //Recycle view adapter
     private val adapter : ListAdapter by lazy {
@@ -146,6 +147,11 @@ class ListFragment : Fragment() {
      */
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.list_fragment_menu,menu)
+
+        val search = menu.findItem(R.id.menu_search)
+        val searchView = search.actionView as? SearchView
+        searchView?.isSubmitButtonEnabled = true
+        searchView?.setOnQueryTextListener(this)
     }
 
 
@@ -162,6 +168,37 @@ class ListFragment : Fragment() {
 
 
         return super.onOptionsItemSelected(item)
+    }
+
+
+    override fun onQueryTextSubmit(query: String?): Boolean {
+        if (query != null){
+            searchThroughDatabase(query)
+        }
+        return true
+    }
+
+
+    override fun onQueryTextChange(query: String?): Boolean {
+        if (query != null){
+            searchThroughDatabase(query)
+        }
+        return true
+    }
+
+    /**
+     * This function gets list of todoData that have passed query in its title
+     * and set this list in the adapter
+     * @param query the search query that title should have
+     */
+    private fun searchThroughDatabase(query: String) {
+        val searchQuery="%$query%"
+
+        mToDoViewModel.searchDatabase(searchQuery).observe(this,Observer{ list ->
+            list?.let{
+                adapter.setData(it)
+            }
+        })
     }
 
 
@@ -208,6 +245,8 @@ class ListFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
+
+
 
 
 }
