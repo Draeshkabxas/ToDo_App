@@ -110,7 +110,7 @@ class ListFragment : Fragment(),SearchView.OnQueryTextListener {
                  adapter.notifyItemRemoved(viewHolder.adapterPosition)
 
                  //Restore deleted item
-                 restoreDeletedData(viewHolder.itemView,deletedItem,viewHolder.adapterPosition)
+                 restoreDeletedData(viewHolder.itemView,deletedItem)
              }
          }
 
@@ -124,7 +124,7 @@ class ListFragment : Fragment(),SearchView.OnQueryTextListener {
      * When user click on undo the deleted item will
      * insert to database and notify adapter about it
      */
-    private fun restoreDeletedData(view:View,deletedItem:ToDoData,position: Int){
+    private fun restoreDeletedData(view:View,deletedItem:ToDoData){
         val  snackBar = Snackbar.make(
             view,"Deleted '${deletedItem.title}'",
             Snackbar.LENGTH_LONG
