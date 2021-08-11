@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.derar.libya.todoapp.data.models.ToDoData
 import com.derar.libya.todoapp.databinding.RowLayoutBinding
@@ -50,8 +51,10 @@ class ListAdapter : RecyclerView.Adapter<ListAdapter.ViewHolder>() {
      */
     @SuppressLint("NotifyDataSetChanged")
     fun setData(toDoData: List<ToDoData>){
+        val toDoDiffUtil = ToDoDiffUtil(this.dataList,toDoData)
+        val toDoDiffUtilResult= DiffUtil.calculateDiff(toDoDiffUtil)
         this.dataList = toDoData
-        notifyDataSetChanged()
+       toDoDiffUtilResult.dispatchUpdatesTo(this)
     }
 
 
