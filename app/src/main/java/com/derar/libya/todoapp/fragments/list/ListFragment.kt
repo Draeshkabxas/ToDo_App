@@ -18,6 +18,8 @@ import com.derar.libya.todoapp.databinding.FragmentListBinding
 import com.derar.libya.todoapp.fragments.SharedViewModel
 import com.derar.libya.todoapp.fragments.list.adapter.ListAdapter
 import com.google.android.material.snackbar.Snackbar
+import jp.wasabeef.recyclerview.animators.LandingAnimator
+import jp.wasabeef.recyclerview.animators.SlideInUpAnimator
 
 
 class ListFragment : Fragment() {
@@ -82,6 +84,11 @@ class ListFragment : Fragment() {
 
         //Set recycle view layout manager to be linear layout
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
+
+        //Set recycler view animator
+        recyclerView.itemAnimator = SlideInUpAnimator().apply {
+           addDuration = 300
+        }
 
         //Set swipe to delete
         swipeToDelete(recyclerView)
