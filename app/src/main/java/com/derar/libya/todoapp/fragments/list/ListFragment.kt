@@ -131,7 +131,6 @@ class ListFragment : Fragment(),SearchView.OnQueryTextListener {
         )
         snackBar.setAction("Undo"){
             mToDoViewModel.insertData(toDoData = deletedItem)
-            adapter.notifyItemChanged(position)
         }
 
         snackBar.show()
