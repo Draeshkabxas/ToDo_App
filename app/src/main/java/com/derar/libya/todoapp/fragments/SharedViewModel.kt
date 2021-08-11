@@ -17,7 +17,7 @@ class SharedViewModel(application: Application) :
 
     /** ==================================== List Fragment =============================================*/
     //this variable for know database is empty or not
-    val emptyDatabase:MutableLiveData<Boolean> = MutableLiveData(true)
+    val emptyDatabase:MutableLiveData<Boolean> = MutableLiveData(false)
 
 
     /**
