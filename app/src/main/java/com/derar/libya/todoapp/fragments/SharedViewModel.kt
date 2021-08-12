@@ -94,11 +94,8 @@ class SharedViewModel(application: Application) :
      * @return true  if title and description not empty
      * @return false if title or description is empty
      */
-    fun verifyDataFromUser(title: String, description: String): Boolean {
-        return if (TextUtils.isEmpty(title) || TextUtils.isEmpty(description)) {
-            false
-        } else !(title.isEmpty() || description.isEmpty())
-    }
+    fun verifyDataFromUser(title: String, description: String): Boolean =
+        !(title.isEmpty() || description.isEmpty())
 
 
 
