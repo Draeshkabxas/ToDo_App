@@ -8,7 +8,6 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.*
 import com.derar.libya.todoapp.R
 import com.derar.libya.todoapp.data.models.ToDoData
@@ -16,6 +15,7 @@ import com.derar.libya.todoapp.data.viewmodel.ToDoViewModel
 import com.derar.libya.todoapp.databinding.FragmentListBinding
 import com.derar.libya.todoapp.fragments.SharedViewModel
 import com.derar.libya.todoapp.fragments.list.adapter.ListAdapter
+import com.derar.libya.todoapp.utils.hideKeyBoard
 import com.google.android.material.snackbar.Snackbar
 import jp.wasabeef.recyclerview.animators.SlideInUpAnimator
 
@@ -37,7 +37,7 @@ class ListFragment : Fragment(),SearchView.OnQueryTextListener {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         Log.d("Debug:findNav","Star Fragment")
 
         //Tell the fragment that it have menu or Set Menu
@@ -55,8 +55,11 @@ class ListFragment : Fragment(),SearchView.OnQueryTextListener {
         //Setup recycleView
         setupRecyclerView()
 
+        //Hide soft keyboard
+        hideKeyBoard(requireActivity())
+
         //Observe LiveData to Get the data from database and set it in adapter
-        mToDoViewModel.getAllData.observe(viewLifecycleOwner, Observer {data->
+        mToDoViewModel.getAllData.observe(viewLifecycleOwner,  {data->
             //Call check if data base empty for show no data image and text to user
             mSharedViewModel.checkIfDatabaseEmpty(data)
             adapter.setData(data)
@@ -163,12 +166,12 @@ class ListFragment : Fragment(),SearchView.OnQueryTextListener {
             R.id.menu_delete_all-> confirmRemoval()
 
             //Sort todolist by high priority
-            R.id.menu_priority_high -> mToDoViewModel.sortByHighPriority.observe(this,Observer{ list->
+            R.id.menu_priority_high -> mToDoViewModel.sortByHighPriority.observe(this,{ list->
                 adapter.setData(list)
             })
 
             //Sort todolist by low priority
-            R.id.menu_priority_low -> mToDoViewModel.sortByLowPriority.observe(this,Observer{ list->
+            R.id.menu_priority_low -> mToDoViewModel.sortByLowPriority.observe(this,{ list->
                 adapter.setData(list)
             })
         }
@@ -201,7 +204,7 @@ class ListFragment : Fragment(),SearchView.OnQueryTextListener {
     private fun searchThroughDatabase(query: String) {
         val searchQuery="%$query%"
 
-        mToDoViewModel.searchDatabase(searchQuery).observe(this,Observer{ list ->
+        mToDoViewModel.searchDatabase(searchQuery).observe(this,{ list ->
             list?.let{
                 adapter.setData(it)
             }
